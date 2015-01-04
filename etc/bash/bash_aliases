@@ -1,0 +1,8 @@
+alias purge="rm -rf *~"
+alias cd2="cd ../.."
+alias cd3="cd ../../.."
+alias cd4="cd ../../../.."
+alias cd5="cd ../../../../.."
+alias grep="grep --color=tty"
+alias egrep="grep -E --color=tty"
+

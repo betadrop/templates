@@ -1,0 +1,115 @@
+# emacs ediff between 2 files.
+#
+l_ediff() {
+  if [[ -z "$2" ]]; then
+    echo "usage: $0 <file 1> <file 2>" >&2
+    return
+  fi
+  emacs --eval "(ediff-files \"$1\" \"$2\")"
+}
+
+# Log to std error with a timestamp.
+#
+l_error() {
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@" >&2
+}
+
+# Print out the environment of a given process.
+#
+l_penv() { ## pid
+  if [[ -z "$1" ]]; then
+    echo penv pid
+    return
+  fi
+  (cat /proc/$1/environ; echo)| tr "\000" "\n"
+}
+
+# Extract pages from a pdf file.
+#
+l_pdfextract() { # file outfile start_page [stop_page]
+  if [[ -z "$3" ]]; then
+     echo pdfextract file outfile start_page stop_page
+     return
+  fi
+  LAST_PAGE="-dLastPage=$3"
+  if [ -n "$4" ]; then
+    LAST_PAGE="-dLastPage=$4"
+  fi
+  gs -sDEVICE=pdfwrite -dBATCH -dQUIET -dNOPAUSE -sOutputFile="$2" -dFirstPage="$3" "$LAST_PAGE" "$1"
+}
+
+# Set terminal title.
+#
+l_settitle() { # title
+  printf "\033];$1\a"
+}
+
+# Print the date represented by this given number of seconds since UTC.
+#
+l_timettostr() { ## seconds since UTC
+  if [ -z "$1" ]; then
+    echo "usage: l_timettostr seconds"
+    return
+  fi
+  local seconds=$1
+  date -d "@$seconds"
+}
+
+# Sum all the first fields.
+#
+l_sum() {
+  awk '{sum+=$1} END {print sum}'
+}
+
+# Average of all the first fields.
+#
+l_avg() {
+  awk '{sum+=$1;count++} END {print sum/count}'
+}
+
+# Extract fields.
+l_c1 () { awk '{print $1}'; }
+l_c2 () { awk '{print $2 }'; }
+l_c3 () { awk '{print $3 }'; }
+l_c4 () { awk '{print $4 }'; }
+l_c5 () { awk '{print $5 }'; }
+l_c6 () { awk '{print $6 }'; }
+l_c7 () { awk '{print $7 }'; }
+l_c8 () { awk '{print $8 }'; }
+l_c9 () { awk '{print $9 }'; }
+l_c10() { awk '{print $10}'; }
+l_c11() { awk '{print $11}'; }
+l_c12() { awk '{print $12}'; }
+l_c13() { awk '{print $13}'; }
+l_c14() { awk '{print $14}'; }
+l_c15() { awk '{print $15}'; }
+l_c16() { awk '{print $16}'; }
+l_c17() { awk '{print $17}'; }
+l_c18() { awk '{print $18}'; }
+l_c19() { awk '{print $19}'; }
+l_c20() { awk '{print $20}'; }
+
+# Return the last modified file in current directory
+#
+l_m() {
+  /bin/ls -t | head -1
+}
+
+# Display all processes by decreasing virtual mem usage.
+#
+l_psmem() {
+  ps -eo "vsz,rss,pid,user,f,args" | sort -n
+}
+
+# Display all processes by decreasing cpu usage.
+#
+l_pscpu() {
+  ps -eo "pcpu,pid,user,f,args" | sort -n
+}
+
+# XML format
+#
+l_xcat() {
+  xmllint -format
+}
+
