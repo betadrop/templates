@@ -113,3 +113,14 @@ l_xcat() {
   xmllint -format
 }
 
+# Diff 2 directories to create a patchset
+#
+l_diff_dirs() {
+  diff -rupN "$1" "$2"
+}
+
+# Apply the patch set in a directory
+#
+l_patch_dir() {
+  patch -u -p1 
+}

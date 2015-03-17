@@ -78,6 +78,7 @@
     (interactive)
     (revert-buffer t t))
 
+(global-set-key [(f3)]  'godoc-at-point)
 (global-set-key [(f4)]  'toggle-header-src)
 (global-set-key [(f5)]   'compile)
 (global-set-key [(f6)]   'next-error)
@@ -85,3 +86,6 @@
 (global-set-key [(f9)]   'call-last-kbd-macro)
 (global-set-key [(f12)]  'undo)
 
+(add-to-list 'load-path "~/etc/emacs/go-mode/")
+(require 'go-mode-autoloads)
+(add-hook 'before-save-hook 'gofmt-before-save)
