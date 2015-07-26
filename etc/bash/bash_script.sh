@@ -19,6 +19,28 @@ example_func() {
     esac
 }
 
+for_loops() {
+    # 1 3 5 7 9
+    local first=1
+    local incr=2
+    local last=9
+    for i in $(seq $first $incr $last); do
+	printf "%d " $i
+    done
+    printf "\n"
+    for (( i = $first; i <= $last; i = i+2 )); do
+	printf "%d " $i 
+    done
+    printf "\n"
+}
+
+forward_params() {
+    while [[ -n "$1" ]]; do
+	printf "param %s\n" $1
+	shift
+    done
+}
+
 string_manip() {
     readonly f="usr/local/one_usr.xx"
     echo "[$f]"
@@ -34,13 +56,15 @@ string_manip() {
     echo "greedy:            [${f%%/*}]" # [usr]
 }
 
-forward_params() {
-    while [[ -n "$1" ]]; do
-	printf "param %s\n" $1
-	shift
-    done
+wait_pid() {
+    /usr/bin/sleep 10 &
+    pid=$!
+    echo "sleep has pid $pid" 
+    wait $pid
 }
 
 # forward_params "$@"
 # string_manip
+# wait_pid
+for_loops
 
