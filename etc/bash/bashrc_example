@@ -2,7 +2,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-PS1='($?)\u@\h:\w \n\$ '
+PS1='($?)-\u@\h:\w \n\$ '
 
 #
 # Don't put duplicate lines in the history.
