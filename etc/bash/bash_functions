@@ -38,6 +38,18 @@ l_pdfextract() { # file outfile start_page [stop_page]
   gs -sDEVICE=pdfwrite -dBATCH -dQUIET -dNOPAUSE -sOutputFile="$2" -dFirstPage="$3" "$LAST_PAGE" "$1"
 }
 
+l_portfwd() { #
+  if [[ $# < 3 ]]; then
+    echo >&2 "usage: $0 localport targethost targetport"
+    return
+  fi
+ 
+  local localport=$1
+  local targethost=$2
+  local targetport=$3
+  socat -v TCP-LISTEN:${localport},fork TCP:${targethost}:${targetport}
+}
+
 # Set terminal title.
 #
 l_settitle() { # title

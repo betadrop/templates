@@ -89,3 +89,5 @@
 (add-to-list 'load-path "~/etc/emacs/go-mode/")
 (require 'go-mode-autoloads)
 (add-hook 'before-save-hook 'gofmt-before-save)
+
+(add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
